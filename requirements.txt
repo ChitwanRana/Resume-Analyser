@@ -1,0 +1,7 @@
+django 
+pandas 
+scikit-learn 
+spacy 
+pdfplumber 
+docx2txt 
+requests

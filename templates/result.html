@@ -1,0 +1,21 @@
+<h2>Resume Evaluation Result</h2>
+
+<h3>Candidate Info:</h3>
+<p><b>Name:</b> {{ info.name }}</p>
+<p><b>Email:</b> {{ info.email }}</p>
+<p><b>Phone:</b> {{ info.phone }}</p>
+<p><b>LinkedIn:</b> <a href="{{ info.linkedin }}" target="_blank">{{ info.linkedin }}</a></p>
+<p><b>GitHub:</b> <a href="{{ info.github }}" target="_blank">{{ info.github }}</a></p>
+
+<p><b>Career Field:</b> {{ resume.career_field }}</p>
+<p><b>Resume Score:</b> {{ resume.resume_score }} / 100</p>
+<p><b>Missing Skills:</b> {{ resume.skills_missing }}</p>
+
+<h3>Recommended Courses & Videos:</h3>
+<ul>
+{% for course in courses %}
+    <li><a href="{{ course }}" target="_blank">{{ course }}</a></li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'upload_resume' %}">Upload Another Resume</a>
