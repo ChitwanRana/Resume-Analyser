@@ -1,21 +1,98 @@
-<h2>Resume Evaluation Result</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Evaluation Result</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 40px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .score-badge {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .missing-skills {
+            color: #dc3545; /* red for missing skills */
+            font-weight: 500;
+        }
+        .courses li a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        .courses li a:hover {
+            text-decoration: underline;
+        }
+        .btn-upload {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="mb-4 text-center">Resume Evaluation Result</h2>
 
-<h3>Candidate Info:</h3>
-<p><b>Name:</b> {{ info.name }}</p>
-<p><b>Email:</b> {{ info.email }}</p>
-<p><b>Phone:</b> {{ info.phone }}</p>
-<p><b>LinkedIn:</b> <a href="{{ info.linkedin }}" target="_blank">{{ info.linkedin }}</a></p>
-<p><b>GitHub:</b> <a href="{{ info.github }}" target="_blank">{{ info.github }}</a></p>
+    <!-- Candidate Info Card -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            Candidate Information
+        </div>
+        <div class="card-body">
+            <p><b>Name:</b> {{ info.name }}</p>
+            <p><b>Email:</b> {{ info.email }}</p>
+            <p><b>Phone:</b> {{ info.phone }}</p>
+            <p><b>LinkedIn:</b> <a href="{{ info.linkedin }}" target="_blank">{{ info.linkedin }}</a></p>
+            <p><b>GitHub:</b> <a href="{{ info.github }}" target="_blank">{{ info.github }}</a></p>
+            <p><b>Career Field:</b> {{ resume.career_field }}</p>
+        </div>
+    </div>
 
-<p><b>Career Field:</b> {{ resume.career_field }}</p>
-<p><b>Resume Score:</b> {{ resume.resume_score }} / 100</p>
-<p><b>Missing Skills:</b> {{ resume.skills_missing }}</p>
+    <!-- Resume Score Card -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            Resume Score
+        </div>
+        <div class="card-body">
+            <p class="score-badge">{{ resume.resume_score }} / 100</p>
+            {% if resume.skills_missing %}
+            <p class="missing-skills">Missing Skills: {{ resume.skills_missing }}</p>
+            {% else %}
+            <p class="text-success">All required skills present!</p>
+            {% endif %}
+        </div>
+    </div>
 
-<h3>Recommended Courses & Videos:</h3>
-<ul>
-{% for course in courses %}
-    <li><a href="{{ course }}" target="_blank">{{ course }}</a></li>
-{% endfor %}
-</ul>
+    <!-- Recommended Courses Card -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-warning text-dark">
+            Recommended Courses & Videos
+        </div>
+        <div class="card-body">
+            {% if courses %}
+            <ul class="courses">
+                {% for course in courses %}
+                    <li><a href="{{ course }}" target="_blank">{{ course }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>No recommendations at the moment.</p>
+            {% endif %}
+        </div>
+    </div>
 
-<a href="{% url 'upload_resume' %}">Upload Another Resume</a>
+    <!-- Upload Another Resume Button -->
+    <div class="text-center">
+        <a href="{% url 'upload_resume' %}" class="btn btn-primary btn-upload">Upload Another Resume</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

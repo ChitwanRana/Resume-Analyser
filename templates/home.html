@@ -4,16 +4,343 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Resume Evaluator</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <style>
+          :root {
+               --primary: #3498db;
+               --secondary: #2980b9;
+               --accent: #e74c3c;
+               --light: #ecf0f1;
+               --dark: #34495e;
+               --text: #2c3e50;
+          }
+          
+          * {
+               margin: 0;
+               padding: 0;
+               box-sizing: border-box;
+               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          }
+          
+          body {
+               background-color: #f8f9fa;
+               color: var(--text);
+               line-height: 1.6;
+          }
+          
+          /* Navbar Styles */
+          .navbar {
+               background-color: var(--dark);
+               padding: 1rem 2rem;
+               box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+               position: sticky;
+               top: 0;
+               z-index: 100;
+          }
+          
+          .nav-container {
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               max-width: 1200px;
+               margin: 0 auto;
+          }
+          
+          .logo {
+               font-size: 1.5rem;
+               font-weight: 700;
+               color: white;
+               text-decoration: none;
+               display: flex;
+               align-items: center;
+          }
+          
+          .logo i {
+               margin-right: 8px;
+               color: var(--primary);
+          }
+          
+          .nav-links {
+               display: flex;
+               list-style: none;
+          }
+          
+          .nav-links li {
+               margin-left: 1.5rem;
+          }
+          
+          .nav-links a {
+               color: white;
+               text-decoration: none;
+               font-weight: 500;
+               transition: color 0.3s;
+          }
+          
+          .nav-links a:hover {
+               color: var(--primary);
+          }
+          
+          /* Main Content Styles */
+          .container {
+               max-width: 1000px;
+               margin: 2rem auto;
+               padding: 2rem;
+               background-color: white;
+               border-radius: 10px;
+               box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+          }
+          
+          .hero {
+               text-align: center;
+               margin-bottom: 3rem;
+               padding-bottom: 2rem;
+               border-bottom: 1px solid #eee;
+          }
+          
+          .hero h1 {
+               font-size: 2.5rem;
+               margin-bottom: 1rem;
+               color: var(--dark);
+          }
+          
+          .hero p {
+               font-size: 1.1rem;
+               color: #666;
+               max-width: 600px;
+               margin: 0 auto;
+          }
+          
+          /* Upload Section Styles */
+          .upload-section {
+               background-color: var(--light);
+               padding: 2rem;
+               border-radius: 8px;
+               margin-bottom: 3rem;
+          }
+          
+          .upload-section h2 {
+               font-size: 1.8rem;
+               margin-bottom: 1.5rem;
+               color: var(--dark);
+               display: flex;
+               align-items: center;
+          }
+          
+          .upload-section h2 i {
+               color: var(--primary);
+               margin-right: 10px;
+          }
+          
+          form {
+               max-width: 600px;
+               margin: 0 auto;
+          }
+          
+          form p {
+               margin-bottom: 1.5rem;
+          }
+          
+          form label {
+               display: block;
+               margin-bottom: 8px;
+               font-weight: 600;
+               color: var(--text);
+          }
+          
+          form input[type="file"] {
+               width: 100%;
+               padding: 10px;
+               border: 2px dashed var(--primary);
+               border-radius: 5px;
+               background-color: white;
+               cursor: pointer;
+          }
+          
+          button[type="submit"] {
+               background-color: var(--primary);
+               color: white;
+               border: none;
+               padding: 12px 25px;
+               border-radius: 5px;
+               font-size: 1rem;
+               font-weight: 600;
+               cursor: pointer;
+               transition: background-color 0.3s;
+               display: block;
+               margin: 0 auto;
+          }
+          
+          button[type="submit"]:hover {
+               background-color: var(--secondary);
+          }
+          
+          /* Features Section */
+          .features {
+               margin-top: 3rem;
+          }
+          
+          .features h2 {
+               text-align: center;
+               margin-bottom: 2rem;
+               font-size: 1.8rem;
+               color: var(--dark);
+          }
+          
+          .features-grid {
+               display: grid;
+               grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+               gap: 2rem;
+          }
+          
+          .feature-card {
+               background-color: white;
+               border-radius: 8px;
+               padding: 1.5rem;
+               text-align: center;
+               box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+               transition: transform 0.3s, box-shadow 0.3s;
+          }
+          
+          .feature-card:hover {
+               transform: translateY(-5px);
+               box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+          }
+          
+          .feature-icon {
+               width: 60px;
+               height: 60px;
+               background-color: rgba(52, 152, 219, 0.1);
+               border-radius: 50%;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               margin: 0 auto 1rem;
+          }
+          
+          .feature-icon i {
+               font-size: 1.5rem;
+               color: var(--primary);
+          }
+          
+          .feature-card h3 {
+               font-size: 1.3rem;
+               margin-bottom: 0.8rem;
+               color: var(--dark);
+          }
+          
+          .feature-card p {
+               color: #666;
+               font-size: 0.95rem;
+          }
+          
+          /* Footer */
+          .footer {
+               background-color: var(--dark);
+               color: white;
+               text-align: center;
+               padding: 2rem;
+               margin-top: 3rem;
+          }
+          
+          .footer p {
+               margin-bottom: 1rem;
+          }
+          
+          /* Responsive Design */
+          @media (max-width: 768px) {
+               .container {
+                    padding: 1.5rem;
+                    margin: 1rem;
+               }
+               
+               .hero h1 {
+                    font-size: 2rem;
+               }
+               
+               .feature-card {
+                    padding: 1rem;
+               }
+               
+               .nav-container {
+                    flex-direction: column;
+               }
+               
+               .nav-links {
+                    margin-top: 1rem;
+               }
+               
+               .nav-links li {
+                    margin-left: 1rem;
+                    margin-right: 1rem;
+               }
+          }
+     </style>
 </head>
 <body>
-     <h1>Welcome to Resume Evaluator</h1>
-     <p>Upload your resume to get career evaluation, skills analysis, and course recommendations.</p>
+     <!-- Navigation Bar -->
+     <nav class="navbar">
+          <div class="nav-container">
+               <a href="#" class="logo">
+                    <i class="fas fa-file-alt"></i>
+                    Resume Evaluator
+               </a>
+               <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+               </ul>
+          </div>
+     </nav>
 
-     <h2>Upload Your Resume</h2>
-     <form method="POST" enctype="multipart/form-data">
-         {% csrf_token %}
-         {{ form.as_p }}
-         <button type="submit">Upload & Evaluate</button>
-     </form>
+     <!-- Main Content -->
+     <div class="container">
+          <div class="hero">
+               <h1>Welcome to Resume Evaluator</h1>
+               <p>Upload your resume to get career evaluation, skills analysis, and course recommendations powered by AI.</p>
+          </div>
+
+          <div class="upload-section">
+               <h2><i class="fas fa-cloud-upload-alt"></i> Upload Your Resume</h2>
+               <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Upload & Evaluate</button>
+               </form>
+          </div>
+
+          <div class="features">
+               <h2>How We Help You</h2>
+               <div class="features-grid">
+                    <div class="feature-card">
+                         <div class="feature-icon">
+                              <i class="fas fa-chart-line"></i>
+                         </div>
+                         <h3>Career Analysis</h3>
+                         <p>Get comprehensive insights into your career trajectory and potential growth opportunities.</p>
+                    </div>
+                    <div class="feature-card">
+                         <div class="feature-icon">
+                              <i class="fas fa-tools"></i>
+                         </div>
+                         <h3>Skills Assessment</h3>
+                         <p>Detailed evaluation of your current skills and identification of skill gaps to address.</p>
+                    </div>
+                    <div class="feature-card">
+                         <div class="feature-icon">
+                              <i class="fas fa-graduation-cap"></i>
+                         </div>
+                         <h3>Course Recommendations</h3>
+                         <p>Personalized course suggestions to help you advance your career and develop new skills.</p>
+                    </div>
+               </div>
+          </div>
+     </div>
+
+     <!-- Footer -->
+     <footer class="footer">
+          <p>© 2025 Resume Evaluator | All Rights Reserved</p>
+          <p>Powered by AI Technology</p>
+     </footer>
 </body>
 </html>
