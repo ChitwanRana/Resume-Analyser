@@ -1,97 +1,128 @@
-# Resume Evaluator
 
-A visually appealing web application to analyze and score resumes, recommend courses, and provide feedback for career improvement.
+<div align="center">
+  <img src="https://img.icons8.com/color/96/000000/resume.png" alt="Resume Icon" width="80"/>
+  
+  # <span style="color:#4299e1">Resume Evaluator</span>
+  
+  <p>
+    <b>🚀 Analyze, Score & Improve Your Resume!</b><br>
+    <i>A creative web app to evaluate resumes, visualize your strengths, and recommend courses for career growth.</i>
+  </p>
+  
+  <p>
+    <img src="https://img.shields.io/badge/Python-3.12-blue?logo=python"/>
+    <img src="https://img.shields.io/badge/Django-5.2.6-success?logo=django"/>
+    <img src="https://img.shields.io/badge/Bootstrap-5.3.2-purple?logo=bootstrap"/>
+    <img src="https://img.shields.io/badge/Font%20Awesome-6.4.0-orange?logo=fontawesome"/>
+  </p>
+</div>
 
-## Features
-- Upload your resume and get a detailed evaluation
-- See your resume score visualized with a circular progress indicator
-- Get feedback on missing skills and strengths
-- Receive recommended courses and resources to improve your profile
-- Beautiful, modern UI with Bootstrap 5 and Font Awesome
+---
 
-## Technologies Used
-- Python 3.12
-- Django 5.2.6
-- Bootstrap 5
-- Font Awesome
-- Google Fonts (Poppins)
+## ✨ Features
 
-## Folder Structure
-```
+🌟 **Upload & Analyze:** Instantly upload your resume and get a professional evaluation.<br>
+🎯 **Score Visualization:** See your resume score in a beautiful circular progress indicator.<br>
+🧩 **Skill Insights:** Discover missing skills and strengths for your target career.<br>
+📚 **Course Recommendations:** Get curated courses and resources to boost your profile.<br>
+🎨 **Modern UI:** Enjoy a sleek, responsive interface powered by Bootstrap 5 & Font Awesome.
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology      | Purpose                |
+|-----------------|------------------------|
+| Python 3.12     | Backend Logic          |
+| Django 5.2.6    | Web Framework          |
+| Bootstrap 5     | UI Styling             |
+| Font Awesome    | Icons                  |
+| Google Fonts    | Typography (Poppins)   |
+
+---
+
+## 📁 Folder Structure
+
+```text
 resume_evaluator/
-├── career_model.pkl
-├── db.sqlite3
-├── manage.py
-├── README.md
-├── requirements.txt
-├── train_model.py
-├── vectorizer.pkl
-├── CV_app/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── tests.py
-│   ├── urls.py
-│   ├── utils.py
-│   ├── views.py
-│   └── migrations/
-│       ├── __init__.py
-│       └── 0001_initial.py
-├── media/
-│   └── resumes/
-├── myenv/
-│   └── ...
-├── resume_evaluator/
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   ├── wsgi.py
-│   └── __pycache__/
-└── templates/
-    ├── home.html
-    └── result.html
+├── career_model.pkl         # ML model for career prediction
+├── db.sqlite3               # Database
+├── manage.py                # Django management
+├── requirements.txt         # Python dependencies
+├── train_model.py           # Model training script
+├── vectorizer.pkl           # Text vectorizer
+├── CV_app/                  # Main Django app
+│   ├── forms.py             # Resume upload form
+│   ├── models.py            # Database models
+│   ├── utils.py             # Scoring logic
+│   ├── views.py             # App views
+│   └── migrations/          # DB migrations
+├── media/                   # Uploaded resumes
+├── myenv/                   # Virtual environment
+├── resume_evaluator/        # Django project settings
+└── templates/               # HTML templates
+    ├── home.html            # Upload page
+    └── result.html          # Results page
 ```
 
-## Setup Instructions
+---
+
+## 🚦 Quick Start
+
 1. **Clone the repository**
-   ```sh
+   ```powershell
    git clone <repo-url>
    cd Resume-Analyser
    ```
-2. **Create and activate a virtual environment**
-   ```sh
+2. **Create & activate a virtual environment**
+   ```powershell
    python -m venv myenv
    myenv\Scripts\activate
    ```
 3. **Install dependencies**
-   ```sh
+   ```powershell
    pip install -r requirements.txt
    ```
 4. **Apply migrations**
-   ```sh
+   ```powershell
    python manage.py migrate
    ```
 5. **Run the development server**
-   ```sh
+   ```powershell
    python manage.py runserver
    ```
 6. **Open in browser**
-   Visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+   [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
-## Usage
-- Upload your resume on the home page
-- View your evaluation results, score, missing skills, and recommended courses
-- Click "Analyze Another Resume" to upload a new file
+---
 
-## Customization
-- Modify `result.html` in the `templates/` folder for UI changes
-- Update scoring logic in `CV_app/utils.py` and `CV_app/views.py`
+## 🎉 Usage
 
+1. **Upload** your resume on the home page.
+2. **View** your evaluation: score, missing skills, and recommended courses.
+3. **Click** "Analyze Another Resume" to try again!
 
-## Author
-Chitwan Rana
-Aditi Mishra 
-Ashish Yadav
+---
+
+## 🖌️ Customization
+
+- Edit `templates/result.html` for UI changes.
+- Update scoring logic in `CV_app/utils.py` and `CV_app/views.py`.
+
+---
+
+## 👨‍💻 Authors
+
+<table>
+  <tr>
+    <td align="center"><b>Chitwan Rana</b></td>
+    <td align="center"><b>Aditi Mishra</b></td>
+    <td align="center"><b>Ashish Yadav</b></td>
+  </tr>
+</table>
+
+---
+
+<div align="center">
+  <sub>Made with ❤️ for career growth</sub>
+</div>
