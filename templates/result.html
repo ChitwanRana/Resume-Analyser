@@ -6,89 +6,279 @@
     <title>Resume Evaluation Result</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+            font-family: 'Poppins', sans-serif;
             padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        .container {
+            max-width: 900px;
+        }
+        .page-title {
+            color: #2d3748;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            border-bottom: none;
+            padding: 1.25rem 1.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .info-label {
+            color: #718096;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        .info-value {
+            color: #2d3748;
+            font-weight: 500;
+        }
+        .info-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .info-item i {
+            margin-right: 10px;
+            color: #4299e1;
+            width: 20px;
+        }
+        .info-link {
+            color: #4299e1;
+            text-decoration: none;
+        }
+        .info-link:hover {
+            text-decoration: underline;
+        }
+        .score-container {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
         }
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg, 
+                #48bb78 0, 
+                #48bb78 {{ resume.resume_score }}%, 
+                #edf2f7 {{ resume.resume_score }}%, 
+                #edf2f7 100%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-right: 25px;
+        }
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: white;
+        }
         .score-badge {
-            font-size: 1.2rem;
+            position: relative;
+            font-size: 1.8rem;
             font-weight: bold;
+            color: #2d3748;
+            z-index: 1;
+        }
+        .score-text {
+            flex: 1;
         }
         .missing-skills {
-            color: #dc3545; /* red for missing skills */
+            background-color: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: #c53030;
             font-weight: 500;
+        }
+        .success-skills {
+            background-color: #f0fff4;
+            border-left: 4px solid #68d391;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: #2f855a;
+            font-weight: 500;
+        }
+        .courses {
+            list-style: none;
+            padding: 0;
+        }
+        .courses li {
+            margin-bottom: 12px;
+            background-color: #f7fafc;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .courses li:hover {
+            background-color: #edf2f7;
+        }
+        .courses li i {
+            margin-right: 10px;
+            color: #ed8936;
         }
         .courses li a {
             text-decoration: none;
-            color: #0d6efd;
-        }
-        .courses li a:hover {
-            text-decoration: underline;
+            color: #2b6cb0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
         }
         .btn-upload {
-            margin-top: 20px;
+            background-color: #4299e1;
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(66, 153, 225, 0.3);
+            transition: all 0.3s ease;
         }
+        .btn-upload:hover {
+            background-color: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(66, 153, 225, 0.4);
+        }
+        .btn-upload i {
+            margin-right: 8px;
+        }
+        .header-candidate { background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%); }
+        .header-score { background: linear-gradient(135deg, #10B981 0%, #047857 100%); }
+        .header-courses { background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2 class="mb-4 text-center">Resume Evaluation Result</h2>
+    <h1 class="text-center page-title">Resume Evaluation Results</h1>
 
     <!-- Candidate Info Card -->
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-            Candidate Information
+    <div class="card shadow">
+        <div class="card-header header-candidate text-white">
+            <i class="fas fa-user-circle"></i> Candidate Information
         </div>
         <div class="card-body">
-            <p><b>Name:</b> {{ info.name }}</p>
-            <p><b>Email:</b> {{ info.email }}</p>
-            <p><b>Phone:</b> {{ info.phone }}</p>
-            <p><b>LinkedIn:</b> <a href="{{ info.linkedin }}" target="_blank">{{ info.linkedin }}</a></p>
-            <p><b>GitHub:</b> <a href="{{ info.github }}" target="_blank">{{ info.github }}</a></p>
-            <p><b>Career Field:</b> {{ resume.career_field }}</p>
+            <div class="info-item">
+                <i class="fas fa-user"></i>
+                <span class="info-label">Name:</span>
+                <span class="info-value">{{ info.name }}</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <span class="info-label">Email:</span>
+                <span class="info-value">{{ info.email }}</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <span class="info-label">Phone:</span>
+                <span class="info-value">{{ info.phone }}</span>
+            </div>
+            <div class="info-item">
+                <i class="fab fa-linkedin"></i>
+                <span class="info-label">LinkedIn:</span>
+                <a class="info-link" href="{{ info.linkedin }}" target="_blank">{{ info.linkedin }}</a>
+            </div>
+            <div class="info-item">
+                <i class="fab fa-github"></i>
+                <span class="info-label">GitHub:</span>
+                <a class="info-link" href="{{ info.github }}" target="_blank">{{ info.github }}</a>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-briefcase"></i>
+                <span class="info-label">Career Field:</span>
+                <span class="info-value">{{ resume.career_field }}</span>
+            </div>
         </div>
     </div>
 
     <!-- Resume Score Card -->
-    <div class="card shadow-sm">
-        <div class="card-header bg-success text-white">
-            Resume Score
+    <div class="card shadow">
+        <div class="card-header header-score text-white">
+            <i class="fas fa-chart-bar"></i> Resume Score Analysis
         </div>
         <div class="card-body">
-            <p class="score-badge">{{ resume.resume_score }} / 100</p>
+            <div class="score-container">
+                <div class="score-circle">
+                    <div class="score-badge">{{ resume.resume_score }}</div>
+                </div>
+                <div class="score-text">
+                    <h4>Overall Score: {{ resume.resume_score }}/100</h4>
+                    <p>This score reflects how well your resume matches the requirements for your career field.</p>
+                </div>
+            </div>
             {% if resume.skills_missing %}
-            <p class="missing-skills">Missing Skills: {{ resume.skills_missing }}</p>
+            <div class="missing-skills">
+                <i class="fas fa-exclamation-triangle"></i> 
+                <strong>Missing Skills:</strong> {{ resume.skills_missing }}
+            </div>
             {% else %}
-            <p class="text-success">All required skills present!</p>
+            <div class="success-skills">
+                <i class="fas fa-check-circle"></i>
+                <strong>Great job!</strong> All required skills are present in your resume.
+            </div>
             {% endif %}
         </div>
     </div>
 
     <!-- Recommended Courses Card -->
-    <div class="card shadow-sm">
-        <div class="card-header bg-warning text-dark">
-            Recommended Courses & Videos
+    <div class="card shadow">
+        <div class="card-header header-courses text-white">
+            <i class="fas fa-graduation-cap"></i> Recommended Courses & Resources
         </div>
         <div class="card-body">
             {% if courses %}
+            <p>Based on your resume analysis, we recommend the following resources to strengthen your profile:</p>
             <ul class="courses">
                 {% for course in courses %}
-                    <li><a href="{{ course }}" target="_blank">{{ course }}</a></li>
+                    <li>
+                        <a href="{{ course }}" target="_blank">
+                            <i class="fas fa-play-circle"></i>
+                            {{ course }}
+                        </a>
+                    </li>
                 {% endfor %}
             </ul>
             {% else %}
-                <p>No recommendations at the moment.</p>
+                <div class="text-center py-4">
+                    <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                    <p class="mb-0">Your skills match the requirements! No additional courses needed at this time.</p>
+                </div>
             {% endif %}
         </div>
     </div>
 
     <!-- Upload Another Resume Button -->
-    <div class="text-center">
-        <a href="{% url 'upload_resume' %}" class="btn btn-primary btn-upload">Upload Another Resume</a>
+    <div class="text-center mb-4">
+        <a href="{% url 'upload_resume' %}" class="btn btn-primary btn-upload">
+            <i class="fas fa-upload"></i> Analyze Another Resume
+        </a>
     </div>
 </div>
 
